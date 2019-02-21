@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Container, Button, H1, H3, Text, Input, InputGroup} from "native-base";
+import {Container, Button, H1, H3, Text, Input, InputGroup, Toast} from "native-base";
 import {Localization} from 'expo-localization';
 import i18n from 'i18n-js';
 import styles from "./styles";
@@ -33,7 +33,13 @@ class Contact extends Component {
     );
   }
 
-  
+  _handle_message_submit = () => {
+    Toast.show({
+      text: "Mensaje enviado con éxito!",
+      textStyle: { color: "yellow" },
+      buttonText: "Okay"
+    })
+  }
 
 
 }

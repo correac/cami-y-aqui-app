@@ -9,12 +9,16 @@ import Location from "./screens/location";
 import locationMap from "./screens/location/locationmap";
 import photogallery from "./screens/location/photogallery";
 import Contact from "./screens/contact";
+import AuthLoading from "./screens/login/authloading";
+import Login from "./screens/login";
+import Rsvp from "./screens/rsvp";
 
 const Drawer = createDrawerNavigator(
   {
     Home: { screen: Home },
     Location: {screen: Location},
-    Contact: {screen: Contact}
+    Contact: {screen: Contact},
+    Rsvp: {screen: Rsvp}
   },
   {
     initialRouteName: "Home",
@@ -27,12 +31,14 @@ const Drawer = createDrawerNavigator(
 
 const AppNavigator = createStackNavigator(
   {
+    AuthInit: {screen: AuthLoading},
+    Auth: {screen: Login},
     Drawer: { screen: Drawer },
     LocationMap: {screen: locationMap},
     LocationPhoto: {screen: photogallery}
   },
   {
-    initialRouteName: "Drawer",
+    initialRouteName: "AuthInit",
     headerMode: "none"
   }
 );
