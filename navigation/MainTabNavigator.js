@@ -98,3 +98,11 @@ export default createBottomTabNavigator({
   LinksStack,
   SettingsStack,
 });
+
+// export default createStackNavigator({
+//   HomeStack,
+//   GuestStack,
+//   PhotoStack,
+//   LinksStack,
+//   SettingsStack,
+// });

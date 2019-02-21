@@ -1,22 +1,23 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {AppLoading, Asset, Font, Icon} from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { Permissions, Notifications } from 'expo';
+import {Permissions, Notifications} from 'expo';
 
 const PUSH_ENDPOINT = 'https://test.camiyaqui.com/api/tokens/';
+
 async function registerForPushNotificationsAsync() {
-  const { status: existingStatus } = await Permissions.getAsync(
+  const {status: existingStatus} = await Permissions.getAsync(
     Permissions.NOTIFICATIONS
   );
   let finalStatus = existingStatus;
-  console.log('Setting up permissions')
+  console.log('Setting up permissions');
   // only ask if permissions have not already been determined, because
   // iOS won't necessarily prompt the user a second time.
   if (existingStatus !== 'granted') {
     // Android remote notification permissions are granted during the app
     // install, so this will only ask on iOS
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     finalStatus = status;
   }
 
@@ -43,8 +44,6 @@ async function registerForPushNotificationsAsync() {
 }
 
 
-
-
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -55,8 +54,9 @@ export default class App extends React.Component {
     registerForPushNotificationsAsync();
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
-    _handleNotification = (notification) => {
-      this.setState({notification: notification});
+
+  _handleNotification = (notification) => {
+    this.setState({notification: notification});
   };
 
   render() {
@@ -71,8 +71,8 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+          <AppNavigator/>
         </View>
       );
     }
@@ -80,16 +80,22 @@ export default class App extends React.Component {
 
   _loadResourcesAsync = async () => {
     return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png'),
-      ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+        'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
+        'Lato-BoldItalic': require('./assets/fonts/Lato-BoldItalic.ttf'),
+        'Lato-Italic': require('./assets/fonts/Lato-Italic.ttf'),
+        'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
+        'Lato-Medium': require('./assets/fonts/Lato-Medium.ttf'),
+        'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
+        'Lato-Semibold': require('./assets/fonts/Lato-Semibold.ttf'),
+        'Lato-Thin': require('./assets/fonts/Lato-Thin.ttf'),
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        // Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
       }),
     ]);
   };
@@ -101,7 +107,7 @@ export default class App extends React.Component {
   };
 
   _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+    this.setState({isLoadingComplete: true});
   };
 }
 
