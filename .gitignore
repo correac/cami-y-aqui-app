@@ -1,3 +1,4 @@
 .expo
 .idea
 *.lock
+node_modules
