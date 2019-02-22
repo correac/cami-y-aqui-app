@@ -13,7 +13,7 @@ import {
   H3,
   Input,
   Button,
-  Container, Form, Item, Content, Toast,
+  Container, Form, Item, Content, Toast, Spinner,
 } from 'native-base';
 
 const FORM_STATES = {
@@ -23,26 +23,75 @@ const FORM_STATES = {
 
 import styles from "./style"
 
+
 export default class Login extends React.Component {
   state = {
     // Current visible form
     formState: FORM_STATES.LOGIN,
+    formErrors: false,
+    validating: false,
   };
 
   _signInAsync = async () => {
-    console.log(this.state.email);
-    await AsyncStorage.setItem('userToken', 'abc');
-    if (this.state.formState === FORM_STATES.REGISTER) {
-      Toast.show({
-        text: "Gracias por registrarte. Cuando revisemos la aplicación te haremos saber.",
-        buttonText: "Okay",
-        type: "success",
-        duration: 10000
+
+    this.setState({'validating': true});
+    if (this.state.formState === FORM_STATES.LOGIN) {
+
+      fetch('https://test.camiyaqui.com/api/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+        }),
+      }).then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          if (responseJson.secret_code) {
+            AsyncStorage.setItem('userToken', responseJson.secret_code);
+            this.props.navigation.navigate('App');
+          } else {
+            this.setState({'form_error': responseJson.error_message})
+          }
+        }).catch((error) => {
+        console.log(error)
       });
-      return
+    }
+    else {
+      fetch('https://test.camiyaqui.com/api/register', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          name: this.state.name,
+        }),
+      }).then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          if (responseJson.message) {
+            Toast.show({
+              text: "Gracias por registrarte. Cuando revisemos la aplicación te haremos saber.",
+              buttonText: "Okay",
+              type: "success",
+              duration: 10000
+            });
+          } else {
+            this.setState({'form_error': responseJson.error_message})
+          }
+        }).catch((error) => {
+        console.log(error)
+      });
     }
 
-    this.props.navigation.navigate('App');
+    this.setState({'validating': false});
+
   };
 
   render() {
@@ -64,6 +113,7 @@ export default class Login extends React.Component {
             Por favor ingresa con el mismo e-mail que usamos para comunicarnos con vos.
           </Text>
           <Form>
+            {this.state.form_error && <Text>{this.state.form_error}</Text>}
             <Item>
               <Input
                 placeholder="Email"
@@ -85,6 +135,7 @@ export default class Login extends React.Component {
             </Item>
             }
             <View style={{marginTop: 5, alignItems: 'center', justifyContent: 'center'}}>
+              {this.state.validating && <Spinner/>}
               <Button full primary onPress={this._signInAsync} style={{padding: 5}}>
                 <Text>{this.state.formState === FORM_STATES.LOGIN ? 'Login' : 'Registrarse'}</Text>
               </Button>

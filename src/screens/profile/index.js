@@ -13,7 +13,7 @@ const fontAwesome = {
   iconLineHeight: (Platform.OS === 'ios' ) ? 37 : 30,
 };
 
-export default class Rsvp extends React.Component {
+export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +34,10 @@ export default class Rsvp extends React.Component {
   }
 
   componentWillMount(){
-    this.setState({'updating': true});
     AsyncStorage.getItem('userToken').
     then((userToken) => {
       this.setState({'userToken': userToken});
-      console.log('https://test.camiyaqui.com/api/guest-rsvp/'+userToken);
-      fetch('https://test.camiyaqui.com/api/guest-rsvp/'+userToken, {
+      fetch('https://test.camiyaqui.com/api/profile/'+userToken, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -47,23 +45,26 @@ export default class Rsvp extends React.Component {
         }
       }).then((response) => response.json())
         .then((response) => {
-        console.log(response);
-        this.setState(response);
-      });
-    });
-    this.setState({'updating': false});
+          console.log(response);
+          this.setState(response);
+        });
+    })
   }
 
-  _updateRsvp = async () => {
+  _updateProfile = async () => {
     this.setState({'updating': true});
     const data = JSON.stringify({
+      nickname: this.state.nickname,
+      name: this.state.name,
+      email: this.state.email,
+      phone: this.state.phone,
       is_attending: this.state.is_attending,
       comes_from: this.state.comes_from,
       dietary_restrictions: this.state.dietary_restrictions,
       has_car: this.state.has_car,
     });
     console.log(data);
-    fetch('https://test.camiyaqui.com/api/guest-rsvp/'+this.state.userToken, {
+    fetch('https://test.camiyaqui.com/api/profile/'+this.state.userToken, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -109,16 +110,39 @@ export default class Rsvp extends React.Component {
             </Button>
           </Left>
           <Body>
-          <Title>Confirma tu asistencia</Title>
+          <Title>Tu Perfil</Title>
           </Body>
         </Header>
-
         <Content padder>
-          <H2>Acá podrás confirmar tu asistencia</H2>
-          <Text>Lo más importante es saber que podremos contar con vos en este día tan especial, pero también vamos a
-            usar este espacio para confirmar detalles de tu dieta, etc.
-          </Text>
-          <Form style={{margiTop: 5}}>
+          <Form>
+            <Item floatingLabel>
+              <Label>Apodo:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'nickname': text})}
+                value = {this.state.nickname}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Nombre:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'name': text})}
+                value = {this.state.name}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>E-Mail:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'email': text})}
+                value = {this.state.email}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Teléfono:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'phone': text})}
+                value = {this.state.phone}
+              />
+            </Item>
             <ListItem button onPress={() => this.toggleAttending()}>
               <CheckBox
                 color="red"
@@ -129,49 +153,35 @@ export default class Rsvp extends React.Component {
               <Text>Venís?</Text>
               </Body>
             </ListItem>
-            {this.state.is_attending &&
-            <Form>
-              <Item floatingLabel>
-                <Label>Desde dónde venís:</Label>
-                <Input
-                  onChangeText={(text) => this.setState({'comes_from': text})}
-                  value = {this.state.comes_from}
-                />
-              </Item>
-              <Item floatingLabel>
-                <Label>Restricciones en la dieta?</Label>
-                <Input
-                  onChangeText={(text) => this.setState({'dietary_restrictions': text})}
-                  value = {this.state.dietary_restrictions}
-                />
-              </Item>
-              <ListItem button onPress={() => this.toggleCar()}>
-                <CheckBox
-                  color="red"
-                  checked={this.state.has_car}
-                  onPress={() => this.toggleCar()}
-                />
-                <Body>
-                <Text>Tenés auto?</Text>
-                </Body>
-              </ListItem>
-            </Form>
-            }
-            <Button full onPress={this._updateRsvp}><Text>Actualizar</Text></Button>
+            <ListItem button onPress={() => this.toggleCar()}>
+              <CheckBox
+                color="red"
+                checked={this.state.has_car}
+                onPress={() => this.toggleCar()}
+              />
+              <Body>
+              <Text>Tenés auto?</Text>
+              </Body>
+            </ListItem>
+            <Item floatingLabel>
+              <Label>Restricciones en la dieta?</Label>
+              <Input
+                onChangeText={(text) => this.setState({'dietary_restrictions': text})}
+                value = {this.state.dietary_restrictions}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Desde dónde venís:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'comes_from': text})}
+                value = {this.state.comes_from}
+              />
+            </Item>
+            <Button full onPress={this._updateProfile}><Text>Actualizar</Text></Button>
             {this.state.updating && <Spinner />}
           </Form>
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.navigate("Group")}>
-              <Icon name="people"/>
-            </Button>
-            <Button active={true} onPress={() => this.props.navigation.navigate("Rsvp")}>
-              <Icon type="FontAwesome" name='address-card' />
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   }
-}
+};
