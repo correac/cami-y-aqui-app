@@ -26,24 +26,28 @@ const datas = [
   {
     name: i18n.t('home'),
     route: "Home",
-    icon: "phone-portrait",
+    icon: "home",
     bg: "#C5F442"
   },
   {
     name: i18n.t('location'),
-    route: "Location"
+    route: "Location",
+    icon: "map"
   },
   {
     name: i18n.t('profile'),
     route: "Profile",
+    icon: "user"
   },
   {
     name: i18n.t('rsvp'),
-    route: "RSVP"
+    route: "Rsvp",
+    icon: "address-card"
   },
   {
     name: i18n.t('contact'),
-    route: "Contact"
+    route: "Contact",
+    icon: "envelope"
   }
 ];
 
@@ -75,6 +79,7 @@ class SideBar extends Component {
               >
                 <Left>
                   <Icon
+                    type="FontAwesome"
                     active
                     name={data.icon}
                     style={{ color: "#777", fontSize: 26, width: 30 }}

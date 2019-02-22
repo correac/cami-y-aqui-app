@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {ImageBackground, View, StatusBar} from "react-native";
-import {Container, Button, H2, H3, Text, FooterTab, Icon, Footer} from "native-base";
+import {Container, Button, H2, H3, Text, FooterTab, Icon, Footer, Header, Left, Body, Title, Right} from "native-base";
 import {Localization} from 'expo-localization';
 import i18n from 'i18n-js';
 import styles from "./styles";
@@ -26,7 +26,17 @@ class Location extends Component {
   render() {
     return (
       <Container>
-        <StatusBar barStyle="light-content"/>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.openDrawer()}>
+              <Icon name="menu"/>
+            </Button>
+          </Left>
+          <Body>
+          <Title>Info del Lugar</Title>
+          </Body>
+          <Right/>
+        </Header>
         <View style={styles.logoContainer}>
           <ImageBackground source={location_picture} style={styles.logo}/>
         </View>
@@ -53,10 +63,10 @@ class Location extends Component {
         <Footer>
           <FooterTab>
             <Button active={this.state.photos} onPress={() => this.props.navigation.navigate("LocationPhoto")}>
-              <Icon active={this.state.photos} name="apps"/>
+              <Icon active={this.state.photos} name="camera"/>
             </Button>
             <Button active={this.state.description} onPress={() => this.props.navigation.navigate("Location")}>
-              <Icon active={this.state.description} name="camera"/>
+              <Icon active={this.state.description} name="apps"/>
             </Button>
             <Button active={this.state.maptab} onPress={() => this.props.navigation.navigate("LocationMap")}>
               <Icon active={this.state.maptab} name="compass"/>

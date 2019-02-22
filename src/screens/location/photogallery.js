@@ -73,10 +73,10 @@ class photogallery extends Component {
         <Footer>
           <FooterTab>
             <Button active={this.state.photos} onPress={() => this.props.navigation.navigate("LocationPhoto")}>
-              <Icon active={this.state.photos} name="apps"/>
+              <Icon active={this.state.photos} name="camera"/>
             </Button>
             <Button active={this.state.description} onPress={() => this.props.navigation.navigate("Location")}>
-              <Icon active={this.state.description} name="camera"/>
+              <Icon active={this.state.description} name="apps"/>
             </Button>
             <Button active={this.state.maptab} onPress={() => this.props.navigation.navigate("LocationMap")}>
               <Icon active={this.state.maptab} name="compass"/>

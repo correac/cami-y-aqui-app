@@ -1,10 +1,6 @@
 export default {
-  title: {
-    flex: 1,
-    width: null,
-    height: null
-  },
   messageContainer: {
+    flex: 1,
     marginTop: 20,
     marginBottom: 20,
   }
