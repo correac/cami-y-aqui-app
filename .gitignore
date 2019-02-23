@@ -2,3 +2,5 @@
 .idea
 *.lock
 node_modules
+constants.js
+*.apk
