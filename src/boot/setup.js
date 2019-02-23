@@ -8,6 +8,10 @@ import App from "../App";
 import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
 
+import {Permissions, Notifications} from 'expo';
+
+
+
 export default class Setup extends Component {
   constructor() {
     super();

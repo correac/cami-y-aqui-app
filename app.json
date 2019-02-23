@@ -4,6 +4,7 @@
     "icon": "./assets/favicon.png",
     "name": "Cami y Aqui app",
     "slug": "cami-y-aqui",
+    "privacy": "unlisted",
     "loading": {
       "hideExponentText": true,
       "backgroundImage": "./assets/splashscreen.png"
@@ -24,12 +25,12 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.uetke.camiyaqui"
     },
-    "description": "",
+    "description": "Our wedding App. You need to be registered on our website in order to use it.",
     "android": {
       "package": "com.uetke.camiyaqui"
     },
@@ -37,6 +38,13 @@
       "image": "./assets/splashscreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "githubUrl": "https://github.com/aquilesC/cami-y-aqui-app",
+    "notification": {
+      "icon": "./assets/notification_icon.png",
+      "color": "#000000",
+      "androidMode": "collapse",
+      "androidCollapsedTitle": "#{unread_notifications} new notifications"
     }
   }
 }

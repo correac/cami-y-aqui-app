@@ -9,6 +9,7 @@ import {
   Text
 } from "native-base";
 
+import API_KEY from "../../../constants";
 
 export default class AuthLoading extends React.Component {
   constructor(props) {
@@ -19,13 +20,15 @@ export default class AuthLoading extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-
+    if (!userToken){
+      this.props.navigation.navigate('Auth');
+    }
     fetch('https://test.camiyaqui.com/api/token', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': API_KEY
       },
       body: JSON.stringify({
         secret_code: userToken,
