@@ -48,6 +48,11 @@ const datas = [
     name: i18n.t('contact'),
     route: "Contact",
     icon: "envelope"
+  },
+  {
+    name: i18n.t('guests'),
+    route: "Guests",
+    icon: "users"
   }
 ];
 

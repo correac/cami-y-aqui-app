@@ -16,6 +16,7 @@ import HeaderApp from "./screens/header";
 import Group from "./screens/rsvp/group";
 import addGuest from "./screens/rsvp/addguest";
 import Profile from "./screens/profile";
+import Guests from "./screens/guests";
 
 
 const LocationNavigator = createStackNavigator(
@@ -53,7 +54,8 @@ const Drawer = createDrawerNavigator(
     Location: {screen: LocationNavigator},
     Contact: {screen: Contact},
     Rsvp: {screen: RsvpNavigator},
-    Profile: {screen: Profile}
+    Profile: {screen: Profile},
+    Guests: {screen: Guests},
   },
   {
     initialRouteName: "Home",

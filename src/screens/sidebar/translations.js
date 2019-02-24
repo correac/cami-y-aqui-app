@@ -1,5 +1,10 @@
 export const en = {
   home: 'Home',
+  location: 'Location',
+  profile: 'Profile',
+  rsvp: 'RSVP',
+  contact: 'Contact',
+  guests: 'Guests'
 };
 
 export const es = {
@@ -8,4 +13,5 @@ export const es = {
   profile: 'Perfil',
   rsvp: 'RSVP',
   contact: 'Contacto',
+  guests: 'Invitados'
 };
