@@ -38,12 +38,12 @@ export default class Rsvp extends React.Component {
     AsyncStorage.getItem('userToken').
     then((userToken) => {
       this.setState({'userToken': userToken});
-      console.log('https://test.camiyaqui.com/api/guest-rsvp/'+userToken);
-      fetch('https://test.camiyaqui.com/api/guest-rsvp/'+userToken, {
+      console.log('https://test.camiyaqui.com/api/guest-rsvp');
+      fetch('https://test.camiyaqui.com/api/guest-rsvp', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+          'Authorization': 'Token '+userToken
         }
       }).then((response) => response.json())
         .then((response) => {
@@ -63,12 +63,12 @@ export default class Rsvp extends React.Component {
       has_car: this.state.has_car,
     });
     console.log(data);
-    fetch('https://test.camiyaqui.com/api/guest-rsvp/'+this.state.userToken, {
+    fetch('https://test.camiyaqui.com/api/guest-rsvp', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': 'Token '+this.state.userToken
       },
       body: data,
     }).then((response) => {

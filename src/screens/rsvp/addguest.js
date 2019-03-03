@@ -32,16 +32,17 @@ export default class addGuest extends React.Component {
     this.setState({'updating': true});
     const data = JSON.stringify({
       is_attending: this.state.is_attending,
-      name: this.state.name,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
       email: this.state.email,
     });
     console.log(data);
-    fetch('https://test.camiyaqui.com/api/new-guest/'+this.state.userToken, {
+    fetch('https://test.camiyaqui.com/api/new-guest', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': 'Token '+this.state.userToken
       },
       body: data,
     }).then((response) => {
@@ -52,7 +53,7 @@ export default class addGuest extends React.Component {
           type: "success",
           duration: 10000
         });
-        this.setState({'email': '', 'name': ''});
+        this.setState({'email': '', 'first_name': '', 'last_name': ''});
       } else {
         Toast.show({
           text: "Hubo un problema",
@@ -83,8 +84,15 @@ export default class addGuest extends React.Component {
             <Item floatingLabel>
               <Label>Nombre:</Label>
               <Input
-                onChangeText={(text) => this.setState({'name': text})}
-                value={this.state.name}
+                onChangeText={(text) => this.setState({'first_name': text})}
+                value={this.state.first_name}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Apellido:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'last_name': text})}
+                value={this.state.last_name}
               />
             </Item>
             <Item floatingLabel>

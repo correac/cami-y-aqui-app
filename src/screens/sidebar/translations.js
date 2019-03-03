@@ -4,7 +4,7 @@ export const en = {
   profile: 'Profile',
   rsvp: 'RSVP',
   contact: 'Contact',
-  guests: 'Guests'
+  guests: "Guests"
 };
 
 export const es = {

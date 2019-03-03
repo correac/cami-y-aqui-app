@@ -33,43 +33,59 @@ export default class Profile extends React.Component {
     });
   }
 
-  componentWillMount(){
+  componentDidMount(){
+    this.setState({'updating': true});
     AsyncStorage.getItem('userToken').
     then((userToken) => {
       this.setState({'userToken': userToken});
-      fetch('https://test.camiyaqui.com/api/profile/'+userToken, {
+      fetch('https://test.camiyaqui.com/api/profile', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+          'Authorization': 'Token ' + userToken,
         }
       }).then((response) => response.json())
         .then((response) => {
           console.log(response);
-          this.setState(response);
+          this.setState({
+            "first_name": response.first_name,
+            "last_name": response.last_name,
+            "email": response.email,
+            "phone": response.profile.phone,
+            "is_attending": response.profile.is_attending,
+            "has_car": response.profile.has_car,
+            "dietary_restrictions": response.profile.dietary_restrictions,
+            "comes_from": response.profile.comes_from,
+          });
         });
+
+    }).then(()=>{
+      this.setState({'updating': false})
     })
   }
 
   _updateProfile = async () => {
     this.setState({'updating': true});
     const data = JSON.stringify({
-      nickname: this.state.nickname,
-      name: this.state.name,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
       email: this.state.email,
-      phone: this.state.phone,
-      is_attending: this.state.is_attending,
-      comes_from: this.state.comes_from,
-      dietary_restrictions: this.state.dietary_restrictions,
-      has_car: this.state.has_car,
+      profile: {
+        nickname: this.state.nickname,
+        phone: this.state.phone,
+        is_attending: this.state.is_attending,
+        comes_from: this.state.comes_from,
+        dietary_restrictions: this.state.dietary_restrictions,
+        has_car: this.state.has_car,
+      }
     });
     console.log(data);
-    fetch('https://test.camiyaqui.com/api/profile/'+this.state.userToken, {
+    fetch('https://test.camiyaqui.com/api/profile', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': 'Token '+this.state.userToken
       },
       body: data,
     }).then((response) => {
@@ -81,6 +97,7 @@ export default class Profile extends React.Component {
           duration: 10000
         });
       } else {
+        console.log(response);
         Toast.show({
           text: "Hubo un problema",
           buttonText: "Okay",
@@ -114,6 +131,7 @@ export default class Profile extends React.Component {
           </Body>
         </Header>
         <Content padder>
+          {this.state.updating && <Spinner />}
           <Form>
             <Item floatingLabel>
               <Label>Apodo:</Label>
@@ -125,8 +143,15 @@ export default class Profile extends React.Component {
             <Item floatingLabel>
               <Label>Nombre:</Label>
               <Input
-                onChangeText={(text) => this.setState({'name': text})}
-                value = {this.state.name}
+                onChangeText={(text) => this.setState({'first_name': text})}
+                value = {this.state.first_name}
+              />
+            </Item>
+            <Item floatingLabel>
+              <Label>Apellido:</Label>
+              <Input
+                onChangeText={(text) => this.setState({'last_name': text})}
+                value = {this.state.last_name}
               />
             </Item>
             <Item floatingLabel>

@@ -24,15 +24,11 @@ export default class AuthLoading extends React.Component {
       this.props.navigation.navigate('Auth');
     }
     fetch('https://test.camiyaqui.com/api/token', {
-      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': API_KEY
+        'Authorization': 'Token '+userToken,
       },
-      body: JSON.stringify({
-        secret_code: userToken,
-      }),
     }).then((response) => {
       const statusCode = response.status;
       if (statusCode === 200){

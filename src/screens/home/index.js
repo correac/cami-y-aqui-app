@@ -1,19 +1,35 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {ImageBackground, View, StatusBar, AsyncStorage} from "react-native";
-import { Container, Button, H3, Text } from "native-base";
-import { Localization } from 'expo-localization';
-import i18n from 'i18n-js';
-import styles from "./styles";
-const launchscreenLogo = require("../../../assets/logo-camiyaqui.png");
-import {en, es} from "./content"
+import {Container, Button, H3, Text} from "native-base";
 import {Notifications, Permissions} from "expo";
 
+import styles from "./styles";
+
+const launchscreenLogo = require("../../../assets/logo-camiyaqui.png");
+
+import { Localization } from 'expo-localization';
+import i18n from 'i18n-js';
+
+const es = {
+  date: '19 de Octubre de 2019',
+  place: 'Buenos Aires, Argentina',
+  start: 'Comienza',
+  intro_text: 'Bienvenido a nuestra Aplicación! Desde aquí podrás confirmar tu presencia, mandarnos mensajes, actualizar to información de contacto y mucho más!'
+};
+const en = {
+  date: 'October 19th, 2019',
+  place: 'Buenos Aires, Argentina',
+  start: 'Start',
+  intro_text: 'Welcome to our wedding app! From here you will be able to confirm your assistance, send us messages, ' +
+    'update your contact information and much more!'
+};
+
 i18n.fallbacks = true;
-i18n.translations = { es, en };
+i18n.translations = { en, es };
 i18n.locale = Localization.locale;
 
-const PUSH_ENDPOINT = 'https://test.camiyaqui.com/api/tokens/';
-import API_KEY from "../../../constants";
+const PUSH_ENDPOINT = 'https://test.camiyaqui.com/api/push-token';
+
 
 async function registerForPushNotificationsAsync(userToken) {
   const {status: existingStatus} = await Permissions.getAsync(
@@ -44,11 +60,10 @@ async function registerForPushNotificationsAsync(userToken) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': API_KEY
+      'Authorization': 'Token ' + userToken
     },
     body: JSON.stringify({
       token: token,
-      user: userToken,
     }),
   }).then((response) => {
     console.log(response.status);
@@ -63,12 +78,12 @@ class Home extends Component {
   componentDidMount() {
     AsyncStorage.getItem('userToken')
       .then((userToken) => {
-      this.setState({'userToken': userToken});
-      registerForPushNotificationsAsync(userToken);
-    }).then(()=>{
+        this.setState({'userToken': userToken});
+        registerForPushNotificationsAsync(userToken);
+      }).then(() => {
       this._notificationSubscription = Notifications.addListener(this._handleNotification);
     });
-    }
+  }
 
   _handleNotification = (notification) => {
     this.setState({notification: notification});
@@ -77,30 +92,33 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <StatusBar barStyle="light-content" />
-          <View style={styles.logoContainer}>
-            <ImageBackground source={launchscreenLogo} style={styles.logo} />
-          </View>
-          <View
-            style={{
-              alignItems: "center",
-              marginBottom: 50,
-              backgroundColor: "transparent"
-            }}
+        <StatusBar barStyle="light-content"/>
+        <View style={styles.logoContainer}>
+          <ImageBackground source={launchscreenLogo} style={styles.logo}/>
+        </View>
+        <View>
+          <Text>Bienvenido a nuestra Aplicación! Desde aquí podrás confirmar tu presencia, mandarnos mensajes, actualizar to información de contacto y mucho más!</Text>
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            marginBottom: 50,
+            backgroundColor: "transparent"
+          }}
+        >
+          <H3 style={styles.text}>19 de Octubre de 2019</H3>
+          <View style={{marginTop: 8}}/>
+          <H3 style={styles.text}>Buenos Aires, Argentina</H3>
+          <View style={{marginTop: 8}}/>
+        </View>
+        <View style={{marginBottom: 80}}>
+          <Button
+            style={{backgroundColor: "#6FAF98", alignSelf: "center"}}
+            onPress={() => this.props.navigation.openDrawer()}
           >
-            <H3 style={styles.text}>{i18n.t('foo')}</H3>
-            <View style={{ marginTop: 8 }} />
-            <H3 style={styles.text}>NativeBase components</H3>
-            <View style={{ marginTop: 8 }} />
-          </View>
-          <View style={{ marginBottom: 80 }}>
-            <Button
-              style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
-              onPress={() => this.props.navigation.openDrawer()}
-            >
-              <Text>Lets Go!</Text>
-            </Button>
-          </View>
+            <Text>Comienza!</Text>
+          </Button>
+        </View>
       </Container>
     );
   }

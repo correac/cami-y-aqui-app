@@ -14,7 +14,7 @@ import {
   Button, Icon, Title,
   Spinner
 } from 'native-base';
-import {AsyncStorage, ScrollView} from "react-native";
+import {AsyncStorage, ScrollView, ListView, RefreshControl} from "react-native";
 import Person from "../rsvp/group";
 import Guest from "./guest";
 
@@ -40,11 +40,12 @@ export default class Guests extends Component {
   };
 
   _fetchGuests() {
+    this.setState({'updating': true});
     fetch('https://test.camiyaqui.com/api/guests/', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': 'Token ' + this.state.userToken
       }
     }).then((response) => response.json())
       .then((response) => {
@@ -57,11 +58,13 @@ export default class Guests extends Component {
           duration: 10000
         });
       }
-    );
+    ).then(() => {
+      this.setState({'updating': false})
+    });
   };
 
   renderGuests() {
-    if (this.state.guests) {
+    if (this.state.guests && !this.state.updating) {
       return this.state.guests.map((guest_data) => {
         return (<Guest key={guest_data.pk} person_data={guest_data}/>)
       })
@@ -79,14 +82,19 @@ export default class Guests extends Component {
             </Button>
           </Left>
           <Body>
-          <Title>Lista de Invitados</Title>
+            <Title>Lista de Invitados</Title>
           </Body>
+          <Right>
+            <Button transparent onPress={() => this._fetchGuests()}>
+              <Icon name={"sync"}/>
+            </Button>
+          </Right>
         </Header>
         <Content>
-            <List>
-              {this.renderGuests()}
-              {this.state.updating && <Spinner/>}
-            </List>
+          <List>
+            {!this.state.updating && this.renderGuests()}
+            {this.state.updating && <Spinner/>}
+          </List>
         </Content>
       </Container>
     );

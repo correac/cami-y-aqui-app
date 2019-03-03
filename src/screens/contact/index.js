@@ -45,12 +45,12 @@ class Contact extends Component {
 
   _sendMessage = async () => {
     const data = JSON.stringify({'message': this.state.message});
-    fetch('https://test.camiyaqui.com/api/message/'+this.state.userToken, {
+    fetch('https://test.camiyaqui.com/api/message', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': API_KEY
+        'Authorization': 'Token '+this.state.userToken
       },
       body: data,
     }).then((response) => {

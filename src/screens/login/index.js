@@ -42,7 +42,6 @@ export default class Login extends React.Component {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
         },
         body: JSON.stringify({
           email: this.state.email,
@@ -50,8 +49,8 @@ export default class Login extends React.Component {
       }).then((response) => response.json())
         .then((responseJson) => {
           console.log(responseJson);
-          if (responseJson.secret_code) {
-            AsyncStorage.setItem('userToken', responseJson.secret_code);
+          if (responseJson.key) {
+            AsyncStorage.setItem('userToken', responseJson.key);
             this.props.navigation.navigate('App');
           } else {
             this.setState({'form_error': responseJson.error_message})
@@ -59,18 +58,17 @@ export default class Login extends React.Component {
         }).catch((error) => {
         console.log(error)
       });
-    }
-    else {
+    } else {
       fetch('https://test.camiyaqui.com/api/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
         },
         body: JSON.stringify({
           email: this.state.email,
-          name: this.state.name,
+          first_name: this.state.first_name,
+          last_name: this.state.last_name
         }),
       }).then((response) => response.json())
         .then((responseJson) => {
@@ -130,7 +128,17 @@ export default class Login extends React.Component {
                 autoCapitalize="words"
                 autoCorrect={false}
                 keyboardType="default"
-                onChangeText={(text) => this.setState({'name': text})}
+                onChangeText={(text) => this.setState({'first_name': text})}
+              />
+            </Item>}
+            {this.state.formState === FORM_STATES.REGISTER &&
+            <Item>
+              <Input
+                placeholder="Apellido"
+                autoCapitalize="words"
+                autoCorrect={false}
+                keyboardType="default"
+                onChangeText={(text) => this.setState({'last_name': text})}
               />
             </Item>
             }

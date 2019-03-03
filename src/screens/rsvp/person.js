@@ -12,6 +12,7 @@ export default class Person extends React.Component {
   constructor(props) {
     super(props);
     this.state = props.person_data;
+    this.state.userToken = props.token;
     console.log(props.person_data);
   }
 
@@ -35,12 +36,12 @@ export default class Person extends React.Component {
       is_child: this.state.is_child,
     });
     console.log(data);
-    fetch('https://test.camiyaqui.com/api/guest-rsvp/'+this.state.secret_code, {
+    fetch('https://test.camiyaqui.com/api/guest-rsvp/'+this.state.id, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token a10772b41d52d1f8c4bebd350da879ffdadd9a16'
+        'Authorization': 'Token ' + this.state.userToken
       },
       body: data,
     }).then((response) => {
@@ -75,7 +76,7 @@ export default class Person extends React.Component {
     return (
       <Card style={styles.mb}>
         <CardItem header>
-          <Text>{this.state.name}</Text>
+          <Text>{this.state.first_name} {this.state.last_name}</Text>
         </CardItem>
         <CardItem>
           <Body>

@@ -17,7 +17,7 @@ export default class Guest extends React.Component {
           <Thumbnail source={require('../../../assets/images/girl_r.png')} style={{height: 30, width: 30}}/>
         </Left>
         <Body>
-        <Text>{this.state.name}</Text>
+        <Text>{this.state.first_name} {this.state.last_name}</Text>
         <Text note>Viene de: {this.state.comes_from}</Text>
         </Body>
         <Right>
