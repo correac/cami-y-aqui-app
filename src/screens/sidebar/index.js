@@ -29,20 +29,25 @@ const datas = [
     icon: "home",
     bg: "#C5F442"
   },
+   {
+   name: i18n.t('rsvp'),
+   route: "Rsvp",
+   icon: "reply-all"
+   },
+   {
+   name: i18n.t('news'),
+   route: "News",
+   icon: "comments"
+   },
   {
     name: i18n.t('location'),
     route: "Location",
-    icon: "map"
+    icon: "gift"
   },
   {
     name: i18n.t('profile'),
     route: "Profile",
     icon: "user"
-  },
-  {
-    name: i18n.t('rsvp'),
-    route: "Rsvp",
-    icon: "address-card"
   },
   {
     name: i18n.t('contact'),

@@ -202,7 +202,7 @@ export default class Profile extends React.Component {
                 value = {this.state.comes_from}
               />
             </Item>
-            <Button full onPress={this._updateProfile}><Text>Actualizar</Text></Button>
+            <Button style={{marginTop:20, backgroundColor: "#6FAF98", alignSelf: "center"}} onPress={this._updateProfile}><Text>Actualizar</Text></Button>
             {this.state.updating && <Spinner />}
           </Form>
         </Content>

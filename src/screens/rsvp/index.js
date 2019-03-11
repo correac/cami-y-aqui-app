@@ -157,7 +157,7 @@ export default class Rsvp extends React.Component {
               </ListItem>
             </Form>
             }
-            <Button full onPress={this._updateRsvp}><Text>Actualizar</Text></Button>
+            <Button style={{marginTop:20, backgroundColor: "#6FAF98", alignSelf: "center"}} onPress={this._updateRsvp}><Text>Actualizar</Text></Button>
             {this.state.updating && <Spinner />}
           </Form>
         </Content>

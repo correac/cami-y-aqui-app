@@ -1,6 +1,6 @@
 export default {
   container: {
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFFFFF"
   },
   text: {
     alignSelf: "center",
@@ -17,7 +17,7 @@ export default {
     justifyContent: 'center',
     right: 20,
     bottom: 20,
-    backgroundColor: '#03A9F4',
+    backgroundColor: '#6FAF98',
     borderRadius: 30,
     elevation: 8
   },

@@ -11,7 +11,7 @@ export default {
   },
   logoContainer: {
     flex: 1,
-    marginTop: 5,
+    marginTop: deviceHeight / 12,
     marginBottom: deviceHeight / 8,
   },
   logo: {
@@ -20,16 +20,6 @@ export default {
     top: Platform.OS === "android" ? 35 : 60,
     width: 280,
     height: 100
-  },
-  pictureContainer: {
-    flex:1,
-    alignItems:"center",
-    marginTop: 15,
-  },
-  picture: {
-    position: "absolute",
-    width: 280,
-    height: 260
   },
   photoGalleryContainer:{
     marginTop: 5,

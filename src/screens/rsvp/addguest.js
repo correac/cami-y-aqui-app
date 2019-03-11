@@ -112,7 +112,7 @@ export default class addGuest extends React.Component {
               <Text>Viene?</Text>
               </Body>
             </ListItem>
-            <Button full onPress={this._submitNewGuest}>
+            <Button style={{marginTop:20, backgroundColor: "#6FAF98", alignSelf: "center"}} onPress={this._submitNewGuest}>
               <Text>Agregar</Text>
             </Button>
           </Form>

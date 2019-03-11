@@ -6,6 +6,7 @@ import {createDrawerNavigator, createStackNavigator, createAppContainer, createS
 import SideBar from "./screens/sidebar";
 import Home from "./screens/home/";
 import Location from "./screens/location";
+import News from "./screens/news";
 import locationMap from "./screens/location/locationmap";
 import photogallery from "./screens/location/photogallery";
 import Contact from "./screens/contact";
@@ -51,6 +52,7 @@ const RsvpNavigator = createStackNavigator(
 const Drawer = createDrawerNavigator(
   {
     Home: {screen: Home},
+    News: {screen: News},
     Location: {screen: LocationNavigator},
     Contact: {screen: Contact},
     Rsvp: {screen: RsvpNavigator},

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Image, View, ScrollView} from "react-native";
-import {Container, Button, Grid, FooterTab, Icon, Footer, Row, Text, H2} from "native-base";
+import {ImageBackground, Image, View, ScrollView} from "react-native";
+import {Container, Button, Grid, FooterTab, Icon, Footer, Row, Text, H2, H3} from "native-base";
 import {Localization} from 'expo-localization';
 import i18n from 'i18n-js';
 import styles from "./styles";
@@ -26,17 +26,35 @@ class photogallery extends Component {
   render() {
     return (
       <Container>
+        <ScrollView style={styles.photoGalleryContainer}>
+        <View style={{marginTop: 0}}>
+              <ImageBackground source={location_picture} style={styles.logo}/>
+        </View>
+        <View style={{
+          alignItems: "center",
+          marginTop: 170,
+          backgroundColor: "transparent"
+        }}>
+        <H2 style={styles.text}>Estancia La Linda</H2>
+         <View style={{marginBottom: -20}}/>
+            <View style={{padding: 20, textAlign:"center"}}>
+          <H3 style={styles.text}>Manuel Luis de Oliden 4651, B1664 Tortuguitas,
+            Buenos Aires, Argentina</H3>
+          <View style={{marginTop: 8, marginLeft:12, marginRight:12}}>
+          <Text style={{textAlign:"center"}}>La estancia se encuentra a 40km de Buenos Aires. En auto el viaje es de aproximadamente 45
+            minutos.</Text>
+          <Text style={{textAlign:"center"}}>Si no tenes auto avisanos en tu perfil, vamos a organizar combis que partan y regresen al barrio de Palermo. </Text>
+          </View>
+        </View>
+    </View>
         <View
           style={{
-            alignItems: "center",
-            // marginBottom: 10,
-            padding: 34,
-            backgroundColor: "transparent"
-          }}
-        >
+          alignItems: "center",
+          padding: 34,
+          backgroundColor: "transparent"
+            }}>
           <H2 style={styles.text}>Fotos de La Linda</H2>
         </View>
-        <ScrollView style={styles.photoGalleryContainer}>
           <Grid>
             <Row size={1}>
               <View style={styles.photoGallery}>
@@ -73,7 +91,7 @@ class photogallery extends Component {
         <Footer>
           <FooterTab>
             <Button active={this.state.photos} onPress={() => this.props.navigation.navigate("LocationPhoto")}>
-              <Icon active={this.state.photos} name="camera"/>
+              <Icon active={this.state.photos} name="map"/>
             </Button>
             <Button active={this.state.description} onPress={() => this.props.navigation.navigate("Location")}>
               <Icon active={this.state.description} name="apps"/>

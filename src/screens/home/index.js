@@ -6,6 +6,7 @@ import {Notifications, Permissions} from "expo";
 import styles from "./styles";
 
 const launchscreenLogo = require("../../../assets/logo-camiyaqui.png");
+const login_picture = require("../../../assets/images/us.jpg");
 
 import { Localization } from 'expo-localization';
 import i18n from 'i18n-js';
@@ -14,14 +15,13 @@ const es = {
   date: '19 de Octubre de 2019',
   place: 'Buenos Aires, Argentina',
   start: 'Comienza',
-  intro_text: 'Bienvenido a nuestra Aplicación! Desde aquí podrás confirmar tu presencia, mandarnos mensajes, actualizar to información de contacto y mucho más!'
+  intro_text: 'Bienvenido a nuestra Aplicación! Desde aquí podrás enterarte sobre los últimos detalles de nuestro casamiento, confirmar tu presencia, mandarnos mensajes, actualizar tu información de contacto y mucho más!'
 };
 const en = {
   date: 'October 19th, 2019',
   place: 'Buenos Aires, Argentina',
   start: 'Start',
-  intro_text: 'Welcome to our wedding app! From here you will be able to confirm your assistance, send us messages, ' +
-    'update your contact information and much more!'
+  intro_text: 'Welcome to our wedding app! From here you will be able to learn the latests details of our weeding, confirm your assistance, send us messages, update your contact information and much more!'
 };
 
 i18n.fallbacks = true;
@@ -93,23 +93,33 @@ class Home extends Component {
     return (
       <Container>
         <StatusBar barStyle="light-content"/>
+        <View style={{alignItems: "center", marginBottom: 80}}>
+            <ImageBackground source={login_picture} style={styles.picture}/>
+        </View>
         <View style={styles.logoContainer}>
           <ImageBackground source={launchscreenLogo} style={styles.logo}/>
         </View>
-        <View>
-          <Text>Bienvenido a nuestra Aplicación! Desde aquí podrás confirmar tu presencia, mandarnos mensajes, actualizar to información de contacto y mucho más!</Text>
+        <View
+          style={{
+          align: "center",
+          marginLeft: 30,
+          marginRight: 30,
+          backgroundColor: "transparent"
+        }}>
+            <Text style={{textAlign:"center"}}>Bienvenido a nuestra Aplicación! Desde aquí podrás enterarte sobre los últimos detalles de nuestro casamiento, confirmar tu presencia, mandarnos mensajes, actualizar tu información de contacto y mucho más!</Text>
         </View>
         <View
           style={{
             alignItems: "center",
-            marginBottom: 50,
+            marginTop: 30,
+            marginBottom: 0,
             backgroundColor: "transparent"
           }}
         >
-          <H3 style={styles.text}>19 de Octubre de 2019</H3>
+            <H3 style={styles.text}>19 de Octubre de 2019</H3>
           <View style={{marginTop: 8}}/>
           <H3 style={styles.text}>Buenos Aires, Argentina</H3>
-          <View style={{marginTop: 8}}/>
+          <View style={{marginBottom: 8}}/>
         </View>
         <View style={{marginBottom: 80}}>
           <Button

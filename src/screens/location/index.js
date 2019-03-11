@@ -5,6 +5,8 @@ import {Localization} from 'expo-localization';
 import i18n from 'i18n-js';
 import styles from "./styles";
 
+const uschat_picture = require("../../../assets/images/us_chat2/us_chat2.jpeg");
+
 const location_picture = require("../../../assets/images/Estancia_La_linda.jpg");
 import {en, es} from "./content"
 
@@ -33,40 +35,26 @@ class Location extends Component {
             </Button>
           </Left>
           <Body>
-          <Title>Info del Lugar</Title>
+          <Title>Informacion</Title>
           </Body>
           <Right/>
         </Header>
-        <View style={styles.logoContainer}>
-          <ImageBackground source={location_picture} style={styles.logo}/>
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            marginBottom: 50,
-            backgroundColor: "transparent"
-          }}
-        >
-          <H2 style={styles.text}>Estancia La Linda</H2>
-          <View style={{marginTop: 8}}/>
-          <View style={{padding: 16}}>
-            <H3 style={styles.text}>Manuel Luis de Oliden 4651, B1664 Tortuguitas,
-              Buenos Aires, Argentina</H3>
-            <View style={{marginTop: 8}}>
-              <Text>La estancia se encuentra a 40km de Buenos Aires. En auto el viaje es de aproximadamente 45
-                minutos.</Text>
-              <Text>Para los que no tengan auto, vamos a organizar combis que parten y regresan al barrio de
-                Palermo. </Text>
-            </View>
-          </View>
+            <View style={{marginLeft:12, marginRight:12, marginTop:30, marginBottom:30}}>
+            <Text style={{textAlign:"center"}}>-Aqui, te querés casar conmigo?</Text>
+            <Text style={{textAlign:"center"}}>-Claro que siii, Cami! Cuando?</Text>
+            <Text style={{textAlign:"center"}}>-Que tal el 19 de Octubre, haremos una ceremonia en la Estacia la Linda a las 4pm. Después vamos a cenar, cantar y bailar hasta las 2am! Que te parece?</Text>
+            <Text style={{textAlign:"center"}}>-Me parece genial! :D</Text>
+         </View>
+         <View style={styles.pictureContainer}>
+            <ImageBackground source={uschat_picture} style={styles.picture}/>
         </View>
         <Footer>
           <FooterTab>
             <Button active={this.state.photos} onPress={() => this.props.navigation.navigate("LocationPhoto")}>
-              <Icon active={this.state.photos} name="camera"/>
+            <Icon active={this.state.photos} name="map"/>
             </Button>
             <Button active={this.state.description} onPress={() => this.props.navigation.navigate("Location")}>
-              <Icon active={this.state.description} name="apps"/>
+            <Icon active={this.state.description} name="apps"/>
             </Button>
             <Button active={this.state.maptab} onPress={() => this.props.navigation.navigate("LocationMap")}>
               <Icon active={this.state.maptab} name="compass"/>

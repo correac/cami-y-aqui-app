@@ -95,7 +95,7 @@ class Contact extends Component {
         </Header>
 
         <Content padder>
-        <Text>Cualquier duda o cosa que nos quieras decir, lo podés hacer mandándonos un mensaje.</Text>
+            <Text>Cualquier pregunta o comentario que tengas, lo podés hacer mandándonos un mensaje instantáneo. Te responderemos enviándote un mail los mas pronto que podamos :)</Text>
         <View style={styles.messageContainer}>
           <InputGroup borderType="regular">
             <Input
@@ -105,7 +105,7 @@ class Contact extends Component {
               value={this.state.message}
             />
           </InputGroup>
-          <Button primary onPress={this._sendMessage}><Text>Enviar</Text></Button>
+          <Button style={{marginTop:20, backgroundColor: "#6FAF98", alignSelf: "center"}} onPress={this._sendMessage}><Text>Enviar</Text></Button>
         </View>
         </Content>
       </Container>
